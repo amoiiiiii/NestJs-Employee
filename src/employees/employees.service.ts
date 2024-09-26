@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Employee } from './employee.entity';
-import { CreateEmployeeDto, UpdateEmployeeDto } from './employee.dto';
+import { CreateEmployeeDto } from '../dtos/employee-create.dto';
+import { UpdateEmployeeDto } from '../dtos/employee-update.dto';
 
 @Injectable()
 export class EmployeesService {

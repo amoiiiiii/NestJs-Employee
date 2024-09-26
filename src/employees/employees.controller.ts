@@ -8,7 +8,8 @@ import {
   Delete,
 } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
-import { CreateEmployeeDto, UpdateEmployeeDto } from './employee.dto';
+import { CreateEmployeeDto } from '../dtos/employee-create.dto';
+import { UpdateEmployeeDto } from '../dtos/employee-update.dto';
 import { Employee } from './employee.entity';
 
 @Controller('employees')
