@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Employee } from './employee.entity';
+import { CreateEmployeeDto, UpdateEmployeeDto } from './employee.dto';
 
 @Injectable()
 export class EmployeesService {
@@ -11,7 +12,9 @@ export class EmployeesService {
   ) {}
 
   // Create a new employee
-  async create(employee: Employee): Promise<Employee> {
+  async create(createEmployeeDto: CreateEmployeeDto): Promise<Employee> {
+    // Map CreateEmployeeDto to Employee entity
+    const employee = this.employeeRepository.create(createEmployeeDto);
     return this.employeeRepository.save(employee);
   }
 
@@ -22,13 +25,31 @@ export class EmployeesService {
 
   // Get employee by ID
   async findOne(id: string): Promise<Employee> {
-    return this.employeeRepository.findOne({ where: { id: Number(id) } });
+    return this.employeeRepository.findOne({
+      where: { id: Number(id) },
+    });
   }
 
   // Update employee by ID
-  async update(id: string, employee: Employee): Promise<Employee> {
-    await this.employeeRepository.update(id, employee);
-    return this.findOne(id);
+  async update(
+    id: string,
+    updateEmployeeDto: UpdateEmployeeDto,
+  ): Promise<Employee> {
+    // Find the existing employee
+    const employee = await this.employeeRepository.findOne({
+      where: { id: Number(id) },
+    });
+
+    if (!employee) {
+      // Handle error if employee not found
+      throw new Error('Employee not found');
+    }
+
+    // Map the DTO properties to the existing entity
+    Object.assign(employee, updateEmployeeDto);
+
+    // Save updated employee
+    return this.employeeRepository.save(employee);
   }
 
   // Delete employee by ID

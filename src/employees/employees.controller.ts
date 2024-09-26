@@ -8,6 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
+import { CreateEmployeeDto, UpdateEmployeeDto } from './employee.dto';
 import { Employee } from './employee.entity';
 
 @Controller('employees')
@@ -16,8 +17,9 @@ export class EmployeesController {
 
   // Create a new employee
   @Post()
-  create(@Body() employee: Employee): Promise<Employee> {
-    return this.employeesService.create(employee);
+  create(@Body() createEmployeeDto: CreateEmployeeDto): Promise<Employee> {
+    // Pass the DTO to service
+    return this.employeesService.create(createEmployeeDto);
   }
 
   // Get all employees
@@ -36,9 +38,10 @@ export class EmployeesController {
   @Put(':id')
   update(
     @Param('id') id: string,
-    @Body() employee: Employee,
+    @Body() updateEmployeeDto: UpdateEmployeeDto,
   ): Promise<Employee> {
-    return this.employeesService.update(id, employee);
+    // Pass the DTO to service
+    return this.employeesService.update(id, updateEmployeeDto);
   }
 
   // Delete employee by ID
