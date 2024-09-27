@@ -7,10 +7,10 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { EmployeesService } from './employees.service';
+import { EmployeesService } from '../services/employees.service';
 import { CreateEmployeeDto } from '../dtos/employee-create.dto';
 import { UpdateEmployeeDto } from '../dtos/employee-update.dto';
-import { Employee } from './employee.entity';
+import { Employee } from '../employee.entity';
 
 @Controller('employees')
 export class EmployeesController {
