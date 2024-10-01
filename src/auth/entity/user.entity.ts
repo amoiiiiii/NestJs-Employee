@@ -18,7 +18,10 @@ export class User {
   @Column()
   password: string;
 
-  @OneToOne(() => Employee)
+  @OneToOne(() => Employee, { nullable: true })
   @JoinColumn()
-  employee: Employee; // Relasi 1:1 dengan Employee
+  employee: Employee | null;
+
+  @Column({ nullable: true })
+  employeeId?: number;
 }
