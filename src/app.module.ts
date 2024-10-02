@@ -1,16 +1,26 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule } from '@nestjs/config';
-import { EmployeesModule } from './employees/employees.module';
-import { dataSourceOptions } from './config/database.config'; // Import from the config
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { User } from '../src/auth/entity/user.entity';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        host: configService.get('DB_HOST'),
+        port: configService.get<number>('DB_PORT'),
+        username: configService.get('DB_USER'),
+        password: configService.get('DB_PASSWORD'),
+        database: configService.get('DB_NAME'),
+        entities: [User],
+        synchronize: false, // Pastikan ini 'false' agar migrasi diatur secara manual
+        migrations: ['dist/migrations/*.js'],
+      }),
     }),
-    TypeOrmModule.forRoot(dataSourceOptions), // Use dataSourceOptions directly
-    EmployeesModule,
   ],
 })
 export class AppModule {}
