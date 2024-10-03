@@ -1,7 +1,7 @@
-// users/users.module.ts
+// src/users/users.module.ts
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersController } from '../auth/controllers/user.controller';
+import { UsersController } from '../auth/controllers/user.controller'; // Ensure this path is correct
 import { UsersService } from './services/users.service';
 import { User } from './entity/user.entity';
 

@@ -1,26 +1,15 @@
+// src/app.module.ts
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { User } from '../src/auth/entity/user.entity';
+import { AppDataSource } from './data-source'; // Import your data source
+import { UsersModule } from './auth/users.module'; // Ensure this path is correct
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get('DB_HOST'),
-        port: configService.get<number>('DB_PORT'),
-        username: configService.get('DB_USER'),
-        password: configService.get('DB_PASSWORD'),
-        database: configService.get('DB_NAME'),
-        entities: [User],
-        synchronize: false, // Pastikan ini 'false' agar migrasi diatur secara manual
-        migrations: ['dist/migrations/*.js'],
-      }),
-    }),
+    TypeOrmModule.forRoot(AppDataSource.options), // Use the datasource options here
+    UsersModule, // Import your UsersModule
   ],
 })
 export class AppModule {}
