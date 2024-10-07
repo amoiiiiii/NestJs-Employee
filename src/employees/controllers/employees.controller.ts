@@ -6,7 +6,9 @@ import {
   Param,
   Put,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from '../../auth/auth.guard'; // Import the guard
 import { EmployeesService } from '../services/employees.service';
 import { CreateEmployeeDto } from '../dtos/employee-create.dto';
 import { UpdateEmployeeDto } from '../dtos/employee-update.dto';
@@ -16,36 +18,35 @@ import { Employee } from '../entity/employee.entity';
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
 
-  // Create a new employee
+  // Apply JwtAuthGuard to protect this route
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createEmployeeDto: CreateEmployeeDto): Promise<Employee> {
-    // Pass the DTO to service
     return this.employeesService.create(createEmployeeDto);
   }
 
-  // Get all employees
+  @UseGuards(JwtAuthGuard)
   @Get()
   findAll(): Promise<Employee[]> {
     return this.employeesService.findAll();
   }
 
-  // Get employee by ID
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string): Promise<Employee> {
     return this.employeesService.findOne(id);
   }
 
-  // Update employee by ID
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   update(
     @Param('id') id: string,
     @Body() updateEmployeeDto: UpdateEmployeeDto,
   ): Promise<Employee> {
-    // Pass the DTO to service
     return this.employeesService.update(id, updateEmployeeDto);
   }
 
-  // Delete employee by ID
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string): Promise<void> {
     return this.employeesService.remove(id);

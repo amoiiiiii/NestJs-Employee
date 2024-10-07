@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class LoginUserDTO {
   @IsString()
@@ -8,4 +8,8 @@ export class LoginUserDTO {
   @IsString()
   @IsNotEmpty()
   password: string;
+
+  @IsNumber() // Include employeeId if it's necessary for login
+  @IsNotEmpty()
+  employeeId: number; // Keep this as number if it's a number
 }
