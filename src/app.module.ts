@@ -1,16 +1,19 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppDataSource } from './data-source'; // Import your data source
+import { Module } from '@nestjs/common'; // Import the Module decorator
+import { UsersController } from './auth/controllers/user.controller';
+import { UsersService } from './auth/services/users.service';
+import { User } from './auth/entity/user.entity';
+import { EmployeesService } from './employees/services/employees.service';
 import { UsersModule } from './auth/users.module'; // Ensure this path is correct
-import { AttendanceModule } from './attendance/attendance.module';
+import { Employee } from './employees/entity/employee.entity';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
-    TypeOrmModule.forRoot(AppDataSource.options), // Use the datasource options here
+    TypeOrmModule.forFeature([User, Employee]), // Include any necessary modules here
     UsersModule,
-    AttendanceModule, // No need to replace, this is the correct format
   ],
+  controllers: [UsersController],
+  providers: [UsersService, EmployeesService],
+  exports: [UsersService],
 })
 export class AppModule {}

@@ -1,14 +1,18 @@
 // src/users/users.module.ts
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersController } from '../auth/controllers/user.controller'; // Ensure this path is correct
+import { UsersController } from './controllers/user.controller'; // Update this path as necessary
 import { UsersService } from './services/users.service';
 import { User } from './entity/user.entity';
+import { EmployeesModule } from '../employees/employees.module'; // Adjust the path to EmployeesModule
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User])], // Register User entity with TypeORM
+  imports: [
+    TypeOrmModule.forFeature([User]),
+    EmployeesModule, // Import EmployeesModule here
+  ],
   controllers: [UsersController],
   providers: [UsersService],
-  exports: [UsersService], // Export UsersService if used in other modules
+  exports: [UsersService],
 })
 export class UsersModule {}
