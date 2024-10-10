@@ -5,6 +5,5 @@
   "compilerOptions": {
     "deleteOutDir": true,
     "assets": [{ "include": "common/locale/**/*", "watchAssets": true}]
-  },
-  "entryFile": "/Users/nestjs-employee/src/main.js"
+  }
 }

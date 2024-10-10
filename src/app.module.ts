@@ -1,19 +1,17 @@
-import { Module } from '@nestjs/common'; // Import the Module decorator
-import { UsersController } from './auth/controllers/user.controller';
-import { UsersService } from './auth/services/users.service';
-import { User } from './auth/entity/user.entity';
-import { EmployeesService } from './employees/services/employees.service';
-import { UsersModule } from './auth/users.module'; // Ensure this path is correct
-import { Employee } from './employees/entity/employee.entity';
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UsersModule } from './auth/users.module';
+import { EmployeesModule } from './employees/employees.module';
+import { dataSourceOptions } from './config/database.config';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Employee]), // Include any necessary modules here
+    ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRoot(dataSourceOptions),
     UsersModule,
+    EmployeesModule,
   ],
-  controllers: [UsersController],
-  providers: [UsersService, EmployeesService],
-  exports: [UsersService],
 })
 export class AppModule {}
