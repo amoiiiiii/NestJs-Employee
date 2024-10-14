@@ -11,20 +11,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateEmployeeDto = void 0;
 const class_validator_1 = require("class-validator");
+const swagger_1 = require("@nestjs/swagger");
 class UpdateEmployeeDto {
 }
 exports.UpdateEmployeeDto = UpdateEmployeeDto;
 __decorate([
+    (0, swagger_1.ApiPropertyOptional)({ description: 'The updated name of the employee' }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], UpdateEmployeeDto.prototype, "name", void 0);
 __decorate([
+    (0, swagger_1.ApiPropertyOptional)({ description: 'The updated position of the employee' }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], UpdateEmployeeDto.prototype, "position", void 0);
 __decorate([
+    (0, swagger_1.ApiPropertyOptional)({ description: 'The updated salary of the employee' }),
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)

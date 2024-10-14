@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EmployeesController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const auth_guard_1 = require("../../auth/auth.guard");
 const employees_service_1 = require("../services/employees.service");
 const employee_create_dto_1 = require("../dtos/employee-create.dto");
@@ -42,6 +43,9 @@ exports.EmployeesController = EmployeesController;
 __decorate([
     (0, common_1.UseGuards)(auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)(),
+    (0, swagger_1.ApiOperation)({ summary: 'Create a new employee' }),
+    (0, swagger_1.ApiResponse)({ status: 201, description: 'Employee created successfully.' }),
+    (0, swagger_1.ApiResponse)({ status: 403, description: 'Forbidden.' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [employee_create_dto_1.CreateEmployeeDto]),
@@ -50,6 +54,8 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)(),
+    (0, swagger_1.ApiOperation)({ summary: 'Get a list of all employees' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Successful operation.' }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
@@ -57,6 +63,9 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Get employee by ID' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Employee found.' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Employee not found.' }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -65,6 +74,8 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(auth_guard_1.JwtAuthGuard),
     (0, common_1.Put)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Update employee information' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Employee updated successfully.' }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -74,12 +85,17 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(auth_guard_1.JwtAuthGuard),
     (0, common_1.Delete)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Delete an employee' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Employee deleted successfully.' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Employee not found.' }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], EmployeesController.prototype, "remove", null);
 exports.EmployeesController = EmployeesController = __decorate([
+    (0, swagger_1.ApiTags)('Employees'),
+    (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)('employees'),
     __metadata("design:paramtypes", [employees_service_1.EmployeesService])
 ], EmployeesController);

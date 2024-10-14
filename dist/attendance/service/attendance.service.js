@@ -16,8 +16,8 @@ exports.AttendanceService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
-const attendance_entity_1 = require("./entity/attendance.entity");
-const employee_entity_1 = require("../../src/employees/entity/employee.entity");
+const attendance_entity_1 = require("../entity/attendance.entity");
+const employee_entity_1 = require("../../employees/entity/employee.entity");
 let AttendanceService = class AttendanceService {
     constructor(attendanceRepository, employeeRepository) {
         this.attendanceRepository = attendanceRepository;
