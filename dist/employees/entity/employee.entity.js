@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Employee = void 0;
 const typeorm_1 = require("typeorm");
 const attendance_entity_1 = require("../../attendance/entity/attendance.entity");
+const absence_entity_1 = require("../../absences/entity/absence.entity");
 let Employee = class Employee {
 };
 exports.Employee = Employee;
@@ -35,6 +36,10 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => attendance_entity_1.Attendance, (attendance) => attendance.employee),
     __metadata("design:type", Array)
 ], Employee.prototype, "attendances", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => absence_entity_1.Absence, (absence) => absence.employee),
+    __metadata("design:type", Array)
+], Employee.prototype, "absences", void 0);
 exports.Employee = Employee = __decorate([
     (0, typeorm_1.Entity)()
 ], Employee);

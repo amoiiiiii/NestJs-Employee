@@ -11,23 +11,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateAttendanceDto = void 0;
 const class_validator_1 = require("class-validator");
+const swagger_1 = require("@nestjs/swagger");
 class CreateAttendanceDto {
 }
 exports.CreateAttendanceDto = CreateAttendanceDto;
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'The date of attendance (YYYY-MM-DD)',
+    }),
     (0, class_validator_1.IsDateString)(),
     __metadata("design:type", String)
 ], CreateAttendanceDto.prototype, "date", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'The time when the employee checked in (HH:MM:SS)',
+    }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateAttendanceDto.prototype, "timeIn", void 0);
 __decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'The time when the employee checked out (HH:MM:SS)',
+    }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateAttendanceDto.prototype, "timeOut", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'The ID of the employee attending',
+    }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateAttendanceDto.prototype, "employeeId", void 0);

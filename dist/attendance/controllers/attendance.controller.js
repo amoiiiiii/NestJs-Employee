@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AttendanceController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const attendance_service_1 = require("../service/attendance.service");
 const create_attendance_dto_1 = require("../dtos/create-attendance.dto");
 let AttendanceController = class AttendanceController {
@@ -30,6 +31,15 @@ let AttendanceController = class AttendanceController {
 exports.AttendanceController = AttendanceController;
 __decorate([
     (0, common_1.Post)(),
+    (0, swagger_1.ApiOperation)({ summary: 'Create a new attendance record' }),
+    (0, swagger_1.ApiResponse)({
+        status: 201,
+        description: 'Attendance record created successfully.',
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 400,
+        description: 'Bad Request.',
+    }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_attendance_dto_1.CreateAttendanceDto]),
@@ -37,11 +47,17 @@ __decorate([
 ], AttendanceController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    (0, swagger_1.ApiOperation)({ summary: 'Get all attendance records' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'List of attendance records.',
+    }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], AttendanceController.prototype, "findAll", null);
 exports.AttendanceController = AttendanceController = __decorate([
+    (0, swagger_1.ApiTags)('Attendances'),
     (0, common_1.Controller)('attendances'),
     __metadata("design:paramtypes", [attendance_service_1.AttendanceService])
 ], AttendanceController);
