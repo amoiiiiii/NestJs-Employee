@@ -18,6 +18,7 @@ exports.CreateAttendanceDto = CreateAttendanceDto;
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'The date of attendance (YYYY-MM-DD)',
+        example: '2024-10-17',
     }),
     (0, class_validator_1.IsDateString)(),
     __metadata("design:type", String)
@@ -25,6 +26,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'The time when the employee checked in (HH:MM:SS)',
+        example: '08:30:00',
     }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
@@ -32,6 +34,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         description: 'The time when the employee checked out (HH:MM:SS)',
+        example: '17:00:00',
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
@@ -40,6 +43,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'The ID of the employee attending',
+        example: '12345',
     }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)

@@ -16,6 +16,7 @@ exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
 const users_service_1 = require("../services/users.service");
 const credintial_user_dto_1 = require("../dtos/credintial-user.dto");
+const swagger_1 = require("@nestjs/swagger");
 let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
@@ -27,12 +28,15 @@ let UsersController = class UsersController {
 exports.UsersController = UsersController;
 __decorate([
     (0, common_1.Post)(),
+    (0, swagger_1.ApiOperation)({ summary: 'Create a new user' }),
+    (0, swagger_1.ApiBody)({ type: credintial_user_dto_1.CredentialsDTO }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [credintial_user_dto_1.CredentialsDTO]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "create", null);
 exports.UsersController = UsersController = __decorate([
+    (0, swagger_1.ApiTags)('Users'),
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])
 ], UsersController);

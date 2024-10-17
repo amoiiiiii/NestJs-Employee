@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Attendance } from '../entity/attendance.entity';
@@ -21,7 +21,7 @@ export class AttendanceService {
     });
 
     if (!employee) {
-      throw new Error('Employee not found');
+      throw new NotFoundException('Employee not found');
     }
 
     const attendance = this.attendanceRepository.create({
@@ -30,10 +30,8 @@ export class AttendanceService {
       timeOut: createAttendanceDto.timeOut,
       employee,
     });
-
     return this.attendanceRepository.save(attendance);
   }
-
   async findAll(): Promise<Attendance[]> {
     return this.attendanceRepository.find({ relations: ['employee'] });
   }

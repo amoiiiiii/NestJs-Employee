@@ -3,6 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './auth/users.module';
 import { EmployeesModule } from './employees/employees.module';
+import { AttendanceModule } from './attendance/attendance.module';
+import { AbsenceModule } from './absences/absence.module';
 import { dataSourceOptions } from './config/database.config';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
@@ -12,6 +14,8 @@ import { dataSourceOptions } from './config/database.config';
     TypeOrmModule.forRoot(dataSourceOptions),
     UsersModule,
     EmployeesModule,
+    AttendanceModule,
+    AbsenceModule,
   ],
 })
 export class AppModule {}

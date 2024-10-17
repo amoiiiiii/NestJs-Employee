@@ -28,7 +28,7 @@ let AttendanceService = class AttendanceService {
             where: { id: Number(createAttendanceDto.employeeId) },
         });
         if (!employee) {
-            throw new Error('Employee not found');
+            throw new common_1.NotFoundException('Employee not found');
         }
         const attendance = this.attendanceRepository.create({
             date: createAttendanceDto.date,

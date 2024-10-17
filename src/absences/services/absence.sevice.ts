@@ -16,7 +16,6 @@ export class AbsenceService {
     private readonly employeeRepository: Repository<Employee>,
   ) {}
 
-  // Create absence
   async create(createAbsenceDto: CreateAbsenceDto): Promise<Absence> {
     const employee = await this.employeeRepository.findOne({
       where: { id: Number(createAbsenceDto.employeeId) },
@@ -35,13 +34,9 @@ export class AbsenceService {
 
     return this.absenceRepository.save(absence);
   }
-
-  // Get all absences
   async findAll(): Promise<Absence[]> {
     return this.absenceRepository.find({ relations: ['employee'] });
   }
-
-  // Get absence by id
   async findOne(id: number): Promise<Absence> {
     const absence = await this.absenceRepository.findOne({
       where: { id },
@@ -59,7 +54,7 @@ export class AbsenceService {
     id: number,
     updateAbsenceDto: UpdateAbsenceDto,
   ): Promise<Absence> {
-    const absence = await this.findOne(id); // Check if absence exists
+    const absence = await this.findOne(id);
     if (updateAbsenceDto.employeeId) {
       const employee = await this.employeeRepository.findOne({
         where: { id: Number(updateAbsenceDto.employeeId) },
@@ -76,9 +71,8 @@ export class AbsenceService {
     return this.absenceRepository.save(absence);
   }
 
-  // Delete absence
   async remove(id: number): Promise<void> {
-    const absence = await this.findOne(id); // Check if absence exists
+    const absence = await this.findOne(id);
     await this.absenceRepository.remove(absence);
   }
 }

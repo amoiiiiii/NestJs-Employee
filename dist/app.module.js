@@ -12,6 +12,8 @@ const config_1 = require("@nestjs/config");
 const typeorm_1 = require("@nestjs/typeorm");
 const users_module_1 = require("./auth/users.module");
 const employees_module_1 = require("./employees/employees.module");
+const attendance_module_1 = require("./attendance/attendance.module");
+const absence_module_1 = require("./absences/absence.module");
 const database_config_1 = require("./config/database.config");
 let AppModule = class AppModule {
 };
@@ -23,6 +25,8 @@ exports.AppModule = AppModule = __decorate([
             typeorm_1.TypeOrmModule.forRoot(database_config_1.dataSourceOptions),
             users_module_1.UsersModule,
             employees_module_1.EmployeesModule,
+            attendance_module_1.AttendanceModule,
+            absence_module_1.AbsenceModule,
         ],
     })
 ], AppModule);
