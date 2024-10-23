@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AttendanceService } from '../service/attendance.service';
 import { CreateAttendanceDto } from '../dtos/create-attendance.dto';
-import { Attendance } from '../entity/attendance.entity';
+import { Attendance } from '../entities/attendance.entity';
 
 @ApiTags('Attendances')
 @Controller('attendances')

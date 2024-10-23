@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { Attendance } from '../../attendance/entity/attendance.entity';
-import { Absence } from '../../absences/entity/absence.entity';
-import { User } from '../../auth/entity/user.entity';
+import { Attendance } from '../../attendance/entities/attendance.entity';
+import { Absence } from '../../absences/entities/absence.entity';
+import { User } from '../../auth/entities/user.entity';
 
 @Entity()
 export class Employee {

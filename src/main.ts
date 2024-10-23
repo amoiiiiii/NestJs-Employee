@@ -5,16 +5,16 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Konfigurasi Swagger
   const config = new DocumentBuilder()
     .setTitle('Employee Management API')
     .setDescription('API for managing employees, including attendance records.')
     .setVersion('1.0')
-    .addBearerAuth() // Menambahkan Bearer Auth (untuk token JWT)
+    .addTag('Auth')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api-docs', app, document); // Dokumentasi dapat diakses di /api-docs
+  SwaggerModule.setup('api-docs', app, document);
 
   await app.listen(8000);
 }

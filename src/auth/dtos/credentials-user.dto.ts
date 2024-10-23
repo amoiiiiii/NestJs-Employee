@@ -19,6 +19,14 @@ export class CredentialsDTO {
   password: string;
 
   @ApiProperty({
+    example: 'john@example.com',
+    description: 'Email for the user',
+  })
+  @IsString()
+  @IsNotEmpty()
+  email: string;
+
+  @ApiProperty({
     example: 123,
     description: 'Employee ID associated with the user',
     required: false,

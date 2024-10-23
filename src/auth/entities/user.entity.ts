@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { Employee } from '../../employees/entity/employee.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Employee } from '../../employees/entities/employee.entity';
 
 @Entity()
 export class User {
@@ -11,6 +11,9 @@ export class User {
 
   @Column()
   password: string;
+
+  @Column()
+  email: string;
 
   @Column()
   role: string;

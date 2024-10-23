@@ -5,10 +5,10 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Employee } from '../entity/employee.entity';
+import { Employee } from '../entities/employee.entity';
 import { CreateEmployeeDto } from '../dtos/employee-create.dto';
 import { UpdateEmployeeDto } from '../dtos/employee-update.dto';
-import { User } from 'src/auth/entity/user.entity';
+import { User } from 'src/auth/entities/user.entity';
 
 @Injectable()
 export class EmployeesService {
@@ -25,18 +25,27 @@ export class EmployeesService {
         where: { role: 'super_admin' },
       });
       if (superAdmin) {
-        throw new BadRequestException('Hanya boleh ada satu super admin');
+        throw new BadRequestException('There can only be one super admin');
       }
+      const employee = this.employeeRepository.create({
+        ...createEmployeeDto,
+        role: createEmployeeDto.role || 'employee',
+      });
 
-      const employee = this.employeeRepository.create(createEmployeeDto);
-      return this.employeeRepository.save(employee);
+      return await this.employeeRepository.save(employee);
     } catch (error) {
+      console.error('Error creating employee:', error);
       throw new BadRequestException(error.message);
     }
   }
 
   async findAll(): Promise<Employee[]> {
-    return this.employeeRepository.find();
+    try {
+      return await this.employeeRepository.find();
+    } catch (error) {
+      console.error('Error fetching employees:', error);
+      throw new BadRequestException('Could not fetch employees');
+    }
   }
 
   async findOne(id: string): Promise<Employee> {
@@ -45,13 +54,15 @@ export class EmployeesService {
         where: { id: Number(id) },
       });
       if (!employee) {
-        throw new NotFoundException('Employee tidak ditemukan');
+        throw new NotFoundException('Employee not found');
       }
       return employee;
     } catch (error) {
-      throw new NotFoundException(error.message);
+      console.error('Error finding employee:', error);
+      throw new NotFoundException('Employee not found');
     }
   }
+
   async update(
     id: string,
     updateEmployeeDto: UpdateEmployeeDto,
@@ -62,27 +73,29 @@ export class EmployeesService {
       });
 
       if (!employee) {
-        throw new NotFoundException('Employee tidak ditemukan');
+        throw new NotFoundException('Employee not found');
       }
 
-      // Update properti employee
       Object.assign(employee, updateEmployeeDto);
-      return this.employeeRepository.save(employee);
+      return await this.employeeRepository.save(employee);
     } catch (error) {
+      console.error('Error updating employee:', error);
       throw new BadRequestException(error.message);
     }
   }
+
   async remove(id: string): Promise<void> {
     try {
       const employee = await this.employeeRepository.findOne({
         where: { id: Number(id) },
       });
       if (!employee) {
-        throw new NotFoundException('Employee tidak ditemukan');
+        throw new NotFoundException('Employee not found');
       }
 
       await this.employeeRepository.delete(id);
     } catch (error) {
+      console.error('Error deleting employee:', error);
       throw new BadRequestException(error.message);
     }
   }

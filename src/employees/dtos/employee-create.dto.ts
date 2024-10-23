@@ -16,4 +16,9 @@ export class CreateEmployeeDto {
   @IsNumber()
   @IsNotEmpty()
   salary: number;
+
+  @ApiProperty({ description: 'The role of the employee' })
+  @IsString()
+  @IsNotEmpty()
+  role: string;
 }

@@ -5,6 +5,7 @@ import { UsersModule } from './auth/users.module';
 import { EmployeesModule } from './employees/employees.module';
 import { AttendanceModule } from './attendance/attendance.module';
 import { AbsenceModule } from './absences/absence.module';
+import { AuthModule } from './auth/auth.module';
 import { dataSourceOptions } from './config/database.config';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
@@ -16,6 +17,7 @@ import { dataSourceOptions } from './config/database.config';
     EmployeesModule,
     AttendanceModule,
     AbsenceModule,
+    AuthModule,
   ],
 })
 export class AppModule {}

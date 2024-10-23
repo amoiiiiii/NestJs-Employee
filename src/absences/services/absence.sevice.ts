@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Absence } from '../entity/absence.entity';
+import { Absence } from '../entities/absence.entity';
 import { CreateAbsenceDto } from '../dtos/create-absence.dto';
 import { UpdateAbsenceDto } from '../dtos/update-absence.dto';
-import { Employee } from '../../employees/entity/employee.entity';
+import { Employee } from '../../employees/entities/employee.entity';
 
 @Injectable()
 export class AbsenceService {
