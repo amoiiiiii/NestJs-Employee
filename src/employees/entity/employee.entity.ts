@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Attendance } from '../../attendance/entity/attendance.entity';
-import { Absence } from '../../absences/entity/absence.entity'; // Tambahkan impor untuk Absence
+import { Absence } from '../../absences/entity/absence.entity';
+import { User } from '../../auth/entity/user.entity';
 
 @Entity()
 export class Employee {
@@ -13,14 +14,19 @@ export class Employee {
   @Column()
   position: string;
 
-  @Column('decimal') // Untuk menyimpan angka desimal
+  @Column('decimal')
   salary: number;
 
-  // Relasi One-to-Many dengan Attendance
+  @Column()
+  role: string;
+
   @OneToMany(() => Attendance, (attendance) => attendance.employee)
   attendances: Attendance[];
 
-  // Relasi One-to-Many dengan Absence
   @OneToMany(() => Absence, (absence) => absence.employee)
-  absences: Absence[]; // Tambahkan relasi untuk Absences
+  absences: Absence[];
+
+  // Tambahkan relasi ke entitas User
+  @OneToMany(() => User, (user) => user.employee)
+  users: User[];
 }
