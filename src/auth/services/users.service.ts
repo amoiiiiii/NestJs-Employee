@@ -3,36 +3,24 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { CredentialsDTO } from '../dtos/credentials-user.dto';
-import { Employee } from '../../employees/entities/employee.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-    @InjectRepository(Employee)
-    private readonly employeeRepository: Repository<Employee>,
   ) {}
 
   async create(
     createUserDto: CredentialsDTO,
   ): Promise<{ message: string; user?: User }> {
     try {
-      const employee = await this.employeeRepository.findOne({
-        where: { id: createUserDto.employeeId },
-      });
-
-      if (!employee) {
-        throw new Error('Employee tidak ditemukan');
-      }
-
       // Create a new user object with email
       const user = this.userRepository.create({
         username: createUserDto.username,
-        password: createUserDto.password, // Pastikan untuk mengenkripsi password sebelum menyimpan
+        password: createUserDto.password, // Remember to hash the password before saving
         email: createUserDto.email,
         role: createUserDto.role,
-        employee: employee,
       });
 
       const savedUser = await this.userRepository.save(user);
@@ -42,7 +30,7 @@ export class UsersService {
     }
   }
 
-  // Menambahkan metode untuk mencari user berdasarkan username
+  // Method to find a user by username remains unchanged
   async findByUsername(
     username: string,
   ): Promise<{ message: string; user?: User }> {

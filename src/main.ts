@@ -9,7 +9,7 @@ async function bootstrap() {
     .setTitle('Employee Management API')
     .setDescription('API for managing employees, including attendance records.')
     .setVersion('1.0')
-    .addTag('Auth')
+    .addTag('auth')
     .addBearerAuth()
     .build();
 

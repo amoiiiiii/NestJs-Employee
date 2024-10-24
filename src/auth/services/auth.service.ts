@@ -1,24 +1,27 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UsersService } from '../services/users.service';
-import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from '../entities/user.entity'; // Update path if necessary
 import { LoginUserDTO } from '../dtos/login-user.dto';
+import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly usersService: UsersService,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
     private readonly jwtService: JwtService,
   ) {}
 
-  async validateUser(loginDto: LoginUserDTO): Promise<any> {
-    const result = await this.usersService.findByUsername(loginDto.username);
+  async validateUser(loginDto: LoginUserDTO): Promise<User> {
+    const user = await this.userRepository.findOne({
+      where: { email: loginDto.email },
+    });
 
-    if (result.message !== 'User found') {
-      throw new UnauthorizedException(result.message);
+    if (!user) {
+      throw new UnauthorizedException('User tidak ditemukan');
     }
-
-    const user = result.user;
 
     const isPasswordValid = await bcrypt.compare(
       loginDto.password,
@@ -26,7 +29,7 @@ export class AuthService {
     );
 
     if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid Password');
+      throw new UnauthorizedException('Password tidak valid');
     }
 
     return user;

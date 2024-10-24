@@ -1,16 +1,20 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { AuthService } from '../auth/services/auth.service';
-import { JwtStrategy } from '../auth/jwt.strategy';
+import { AuthService } from './services/auth.service';
+import { AuthController } from './controllers/auth.controller';
+import { JwtStrategy } from './jwt.strategy';
 import { UsersModule } from '../auth/users.module';
+import { User } from '../auth/entities/user.entity';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true, // This makes the config module globally available
+      isGlobal: true,
     }),
+    TypeOrmModule.forFeature([User]),
     UsersModule,
     PassportModule,
     JwtModule.registerAsync({
@@ -24,5 +28,6 @@ import { UsersModule } from '../auth/users.module';
   ],
   providers: [AuthService, JwtStrategy],
   exports: [AuthService],
+  controllers: [AuthController],
 })
 export class AuthModule {}
