@@ -6,18 +6,19 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   username: string;
 
   @Column()
   password: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Column()
   role: string;
 
-  @ManyToOne(() => Employee, (employee) => employee.users)
-  employee: Employee;
+  // Relasi opsional ke Employee
+  @ManyToOne(() => Employee, (employee) => employee.users, { nullable: true })
+  employee?: Employee;
 }
